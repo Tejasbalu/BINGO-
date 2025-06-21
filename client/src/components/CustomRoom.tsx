@@ -45,11 +45,20 @@ export default function CustomRoom({ onNavigate }: CustomRoomProps) {
   const handleJoinRoom = () => {
     if (roomCode.trim()) {
       // Emit to server to join room
-      socket.emit('join-room', {
-        playerId: profile.name,
-        roomId: roomCode.trim().toUpperCase()
-      });
-      
+     socket.emit('join-room', {
+  playerId: profile.name,
+  roomId: roomCode.trim().toUpperCase()
+});
+      socket.on('error', (data) => {
+  if (data?.message === 'Room not found') {
+    alert('❌ Room not found. Please check the code again.');
+  } else if (data?.message === 'Room is full') {
+    alert('❌ Room is full.');
+  } else if (data?.message === 'Game already started') {
+    alert('❌ Game already started in this room.');
+  }
+});
+
       console.log('Joining room with code:', roomCode);
     }
   };
