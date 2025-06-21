@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@400;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    background: #000000;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.glossy {
+  background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.glossy-button {
+  background: linear-gradient(145deg, #800020, #660018);
+  border: 2px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 20px rgba(128,0,32,0.4);
+  transition: all 0.3s ease;
+}
+
+.glossy-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(128,0,32,0.6);
+}
+
+.cartoon-font {
+  font-family: 'Fredoka One', cursive;
+}

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎲 Bingo - Multiplayer Game by TiRRuS</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Nunito:wght@400;600;700;800&display=swap');
+      
+      :root {
+        --primary-bg: #000000;
+        --primary-white: #ffffff;
+        --primary-maroon: #800020;
+        --accent-gold: #ffd700;
+        --success-green: #10b981;
+        --danger-red: #ef4444;
+      }
+      
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        font-family: 'Nunito', sans-serif;
+        background: var(--primary-bg);
+        color: var(--primary-white);
+        overflow-x: hidden;
+      }
+      
+      .glossy {
+        background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      }
+      
+      .glossy-button {
+        background: linear-gradient(145deg, var(--primary-maroon), #660018);
+        border: 2px solid rgba(255,255,255,0.1);
+        box-shadow: 0 4px 20px rgba(128,0,32,0.4);
+        transition: all 0.3s ease;
+      }
+      
+      .glossy-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(128,0,32,0.6);
+      }
+      
+      .cartoon-font {
+        font-family: 'Fredoka One', cursive;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
