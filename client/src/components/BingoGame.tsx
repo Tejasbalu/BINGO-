@@ -150,12 +150,7 @@ export default function BingoGame({ onNavigate, config }: BingoGameProps) {
           <CardContent className="p-8 text-center">
             <div className="text-6xl mb-4">⏳</div>
             <h2 className="text-2xl font-bold mb-4">Waiting for players...</h2>
-            <p className="text-gray-400 mb-6">
-              {config?.mode === 'multiplayer' 
-                ? 'Finding other players to start the game'
-                : 'Preparing your AI opponent'
-              }
-            </p>
+          <p className="text-gray-400 mb-6">Finding other players to start the game</p>
             <Button onClick={() => onNavigate('home')} variant="outline">
               Cancel
             </Button>
