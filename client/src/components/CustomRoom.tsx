@@ -62,10 +62,18 @@ export default function CustomRoom({ onNavigate }: CustomRoomProps) {
     });
 
     // Listen for successful room join
-    socket.on('game-started', (data) => {
-      console.log('Game started:', data);
-      onNavigate('multiplayer', { mode: 'custom', roomCode: data.roomId, gameData: data });
+    socket.on('room-created', ({ roomId, room }) => {
+  setWaitingRoom({ code: roomId, maxPlayers: room.maxPlayers });
+});
+socket.on('game-started', (data) => {
+  if (waitingRoom) {
+    onNavigate('multiplayer', {
+      mode: 'multiplayer',
+      roomCode: waitingRoom.code,
+      players: waitingRoom.maxPlayers,
     });
+  }
+});
 
     // Listen for player joined notifications
     socket.on('player-joined', (data) => {
