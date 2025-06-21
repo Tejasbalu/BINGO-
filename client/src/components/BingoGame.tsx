@@ -103,7 +103,15 @@ export default function BingoGame({ onNavigate, config }: BingoGameProps) {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  if (!gameStarted) return null;
+  if (!gameStarted && config?.mode === 'multiplayer') {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white p-8">
+      <div className="text-6xl mb-4 animate-pulse">⏳</div>
+      <h2 className="text-2xl font-bold mb-2">Matching players...</h2>
+      <p className="text-gray-400 text-sm">Waiting for other players to join</p>
+    </div>
+  );
+}
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black p-4">
