@@ -103,27 +103,7 @@ export default function BingoGame({ onNavigate, config }: BingoGameProps) {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  if (!gameStarted) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black p-4 flex items-center justify-center">
-        <Card className="glossy border-white/10 bg-transparent max-w-md mx-auto">
-          <CardContent className="p-8 text-center">
-            <div className="text-6xl mb-4">⏳</div>
-            <h2 className="text-2xl font-bold mb-2">Waiting for players...</h2>
-            <p className="text-white text-lg mb-2">
-              Room Code: <span className="text-yellow-400 font-mono">{config.roomCode}</span>
-            </p>
-            <p className="text-gray-400 mb-6">
-              Share this code and wait for others to join.
-            </p>
-            <Button onClick={() => onNavigate('home')} variant="outline">
-              Cancel
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
+  if (!gameStarted) return null;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black p-4">
