@@ -56,10 +56,23 @@ export default function CustomRoom({ onNavigate }: CustomRoomProps) {
 
   useEffect(() => {
     // Listen for room creation success
-    socket.on('room-created', (data) => {
-      console.log('Room created successfully:', data);
-      onNavigate('multiplayer', { mode: 'custom', roomCode: data.roomId, players: maxPlayers });
-    });
+  // Save the created room info
+socket.on('room-created', ({ roomId, room }) => {
+  setRoomInfo({
+    roomCode: roomId,
+    maxPlayers: room.maxPlayers,
+    joined: 1,
+  });
+});
+
+// Wait until game starts
+socket.on('game-started', (data) => {
+  onNavigate('multiplayer', {
+    mode: 'multiplayer',
+    roomCode: roomInfo.roomCode,
+    players: roomInfo.maxPlayers,
+  });
+});
 
     // Listen for successful room join
     socket.on('room-created', ({ roomId, room }) => {
