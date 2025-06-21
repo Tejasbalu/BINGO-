@@ -146,42 +146,48 @@ export class BingoGameManager {
     
     socket.emit('room-created', { roomId, room });
   }
+// Diagnostic version of joinRoom for debugging "Room not found" issue
+joinRoom(socket: Socket, data: { playerId: string, roomId: string }) {
+  const roomIdCleaned = data.roomId.trim().toUpperCase();
+  console.log('--- JOIN ROOM ATTEMPT ---');
+  console.log('Requested roomId:', data.roomId);
+  console.log('Cleaned roomId:', roomIdCleaned);
+  console.log('Available rooms:', Array.from(this.rooms.keys()));
 
-  joinRoom(socket: Socket, data: { playerId: string, roomId: string }) {
-    const room = this.rooms.get(data.roomId);
-    
-    if (!room) {
-      socket.emit('error', { message: 'Room not found' });
-      return;
-    }
-    
-    if (room.gameStarted) {
-      socket.emit('error', { message: 'Game already started' });
-      return;
-    }
-    
-    if (room.players.length >= room.maxPlayers) {
-      socket.emit('error', { message: 'Room is full' });
-      return;
-    }
-    
-    const player = this.createPlayer(socket, data.playerId);
-    room.players.push(player);
-    this.playerRooms.set(socket.id, room.id);
-    socket.join(room.id);
-    
-    this.io.to(room.id).emit('player-joined', {
-      player: player.name,
-      playerCount: room.players.length,
-      maxPlayers: room.maxPlayers
-    });
-    
-    // Auto-start if room is full
-    if (room.players.length === room.maxPlayers) {
-      this.startGame(room);
-    }
+  const room = this.rooms.get(roomIdCleaned);
+
+  if (!room) {
+    console.log('Room NOT FOUND.');
+    socket.emit('error', { message: 'Room not found' });
+    return;
   }
 
+  if (room.gameStarted) {
+    socket.emit('error', { message: 'Game already started' });
+    return;
+  }
+
+  if (room.players.length >= room.maxPlayers) {
+    socket.emit('error', { message: 'Room is full' });
+    return;
+  }
+
+  const player = this.createPlayer(socket, data.playerId);
+  room.players.push(player);
+  this.playerRooms.set(socket.id, room.id);
+  socket.join(room.id);
+
+  this.io.to(room.id).emit('player-joined', {
+    player: player.name,
+    playerCount: room.players.length,
+    maxPlayers: room.maxPlayers
+  });
+
+  if (room.players.length === room.maxPlayers) {
+    this.startGame(room);
+  }
+}
+  
   startGame(room: GameRoom) {
     room.gameStarted = true;
     
